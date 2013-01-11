@@ -69,13 +69,13 @@ class cw_Verfi_Shortcode {
 			
 			} else {
 			
-				$output = __('Sorry Registration is Closed', 'cw-verifi');
+				$output = apply_filters( 'cw_verifi_closed_message' __('Sorry Registration is Closed', 'cw-verifi'));
 					
 			}
 		
 		} else {
 			
-			$output = __('Your are already logged in', 'cw-verifi');
+			$output = apply_filters( 'cw_verifi_logged_message', __('Your are already logged in', 'cw-verifi') );
 			
 		}
 		
@@ -263,7 +263,7 @@ class cw_Verfi_Shortcode {
 			
 			} 
 			
-			$this->success =apply_filters( 'cw_verifi_sucess_message', __('A Password will be sent to your email', 'cw-verifi') ); 
+			$this->success = apply_filters( 'cw_verifi_success_message', __('A Password will be sent to your email', 'cw-verifi') ); 
 
 			$user_pass = wp_generate_password( 12, false);
 			
