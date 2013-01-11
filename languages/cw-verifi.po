@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Text in function
+#: cw-verifi-shortcode.php:161
+msgid "<strong>ERROR</strong>: Please enter a valid purchase code"
+msgstr ""
+
+#. Text in function
+#: cw-verifi-shortcode.php:161
+msgid "<strong>ERROR</strong>: Please enter your purchase code"
+msgstr ""
+
+#. Text in function
+#: cw-verifi-shortcode.php:161
+msgid "<strong>ERROR</strong>: Sorry this purchase code exsits"
+msgstr ""
+
+#. Text in function
+#: cw-verifi-shortcode.php:161
+msgid "<strong>ERROR</strong>:Email already registered"
+msgstr ""
+
+#. Text in function
+#: cw-verifi-shortcode.php:161
+msgid "<strong>ERROR</strong>:Invalid email"
+msgstr ""
+
+#. Text in function
+#: cw-verifi-shortcode.php:161
+msgid "<strong>ERROR</strong>:Invalid username"
+msgstr ""
+
+#. Text in function
+#: cw-verifi-shortcode.php:161
+msgid "<strong>ERROR</strong>:Please enter a username"
+msgstr ""
+
+#. Text in function
+#: cw-verifi-shortcode.php:161
+msgid "<strong>ERROR</strong>:Username already taken"
+msgstr ""
+
+#. Text in echo
+#: cw-verifi-shortcode.php:137
+msgid "Email"
+msgstr ""
+
+#. Text in echo
+#: cw-verifi-shortcode.php:132
+msgid "Please enter a unique username"
+msgstr ""
+
+#. Text in echo
+#: cw-verifi-shortcode.php:139
+msgid "Please enter your email"
+msgstr ""
+
+#. Text in echo
+#: cw-verifi-shortcode.php:147
+msgid "Please enter your purchase code"
+msgstr ""
+
+#. Text in echo
+#: cw-verifi-shortcode.php:145
+msgid "Purchase Code"
+msgstr ""
+
+#. Text in echo
+#: cw-verifi-shortcode.php:122
+msgid "Register New Account"
+msgstr ""
+
+#. Text in echo
+#: cw-verifi-shortcode.php:155
+msgid "Register an Account"
+msgstr ""
+
+#. Text in function
+#: cw-verifi-shortcode.php:1
+msgid "Sorry Registration is Closed"
+msgstr ""
+
+#. Text in echo
+#: cw-verifi-shortcode.php:130
+msgid "Username"
+msgstr ""

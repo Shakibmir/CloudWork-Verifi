@@ -1,0 +1,54 @@
+/* @override http://raindrop.dev/wp-content/plugins/cw-envato-verify/css/cw-verifi.css?ver=1.0 */
+
+#cw-verifi-form input:focus, #comment_form textarea:focus  {
+    outline: 0;
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+}
+ 
+#cw-verifi-form input::-webkit-input-placeholder, #cw-verifi-form textarea::-webkit-input-placeholder {
+   color: rgb(180,180,180);
+   font-style: italic;
+}
+ 
+#cw-verifi-form input:-moz-placeholder, #cw-verifi-form textarea:-moz-placeholder {
+   color: rgb(180,180,180);
+    font-style: italic;
+}
+ 
+#cw-verifi-forminput:-ms-input-placeholder, #cw-verifi-form textarea:-ms-input-placeholder {
+   color: rgb(180,180,180);
+    font-style: italic;
+}    
+#cw-verifi-form input[type="text"] {
+    padding: 10px 5px;
+    background: rgb(250,250,250);
+    border-radius: 3px;
+	box-sizing:border-box;
+	width: 350px;
+
+	border: 1px solid rgb(230,230,230);
+}
+
+#cw-verifi-form textarea {
+	width: 350px;
+}
+
+#cw-verifi-form input[type="submit"] {
+	cursor: pointer;
+	background: rgb(240,240,240);
+	color: rgb(120,120,120);
+	border: 1px solid rgb(200,200,200);
+	border-radius: 3px;
+	font-family: inherit;
+	padding: 6px;
+	box-shadow: 0 0 1px rgba(0,0,0,.2) ;
+	padding: 0.428571429rem;
+}
+
+#cw-verifi-form input[type="submit"]:hover {
+		background: rgb(240,240,240);
+		box-shadow: 0 0 1px rgba(0,0,0,.4) ;
+
+}
+
