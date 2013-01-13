@@ -40,7 +40,7 @@ class cw_Verfi_Shortcode {
 		add_action('wp_enqueue_scripts', array( $this , 'register_script'));
 		
 		add_action('wp_footer', array( $this , 'enqueue_scripts'));
-		
+				
 	}
 	
 	 /**
@@ -69,7 +69,7 @@ class cw_Verfi_Shortcode {
 			
 			} else {
 			
-				$output = apply_filters( 'cw_verifi_closed_message' __('Sorry Registration is Closed', 'cw-verifi'));
+				$output = apply_filters( 'cw_verifi_closed_message', __('Sorry Registration is Closed', 'cw-verifi'));
 					
 			}
 		
@@ -117,6 +117,30 @@ class cw_Verfi_Shortcode {
 		
 		wp_enqueue_style( 'cw-verifi-css' );
 		
+		do_action( 'cw_verifi_shortcode_scripts' );
+		
+	}
+	
+	/**
+	 * wp_get_current_commenter function.
+	 * 
+	 * @access public
+	 * @return array
+	 */
+	function get_ids() {
+
+		$username_id = 'cw_verifi_user_name';
+
+		$email_id = 'cw_verifi_user_email';
+
+		$purchase_id = 'cw_verifi_purchase_code';
+
+		$nonce_id = 'cw_verifi_nonce';
+		
+		$create_nonce = 'cw-verifi-nonce';
+
+		return apply_filters('cw_verifi_ids', compact('username_id' , 'email_id', 'purchase_id', 'nonce_id', 'create_nonce'));
+
 	}
 	
 	/**
@@ -127,51 +151,63 @@ class cw_Verfi_Shortcode {
 	 * @return string
 	 * @todo filter
 	 */
-	function registration(){
+	function registration($args = array()){
+		
+		$id = $this->get_ids();
+		
+		$fields = array(
+			'username' =>'<p>' . '<label for="' . esc_attr($id['username_id'] ) . '">'. __('Username', 'cw-verifi' ) .'<br />' .
+						 '<input name="' . esc_attr($id['username_id'] ) . '" id="' . esc_attr($id['username_id'] ) . '" class="required" type="text" placeholder="' . __('Please enter a unique username', 'cw-verifi') . '"/></label></p>',
+			
+			'user_email' =>'<p>' . '<label for="' . esc_attr($id['email_id'] ) . '">'. __('Email', 'cw-verifi') . '<br />' .
+						   '<input name="' . esc_attr($id['email_id'] ) . '" id="' . esc_attr($id['email_id'] ) . '" class="required" type="text" placeholder="'. __('Please enter your email', 'cw-verifi').'"/></label></p>',
+			
+			'purchase_code' =>'<p>' . '<label for="' . esc_attr($id['purchase_id'] ) . '">'. __('Purchase Code', 'cw-verifi') . '><span>&nbsp;(<a class="thickbox" href="' . trailingslashit( CWV_IMAGES ) . 'purchasecode.jpg' .'">whats this</a>)</span>' .
+							  '<br /><input name="' . esc_attr($id['purchase_id'] ) . '" id="' . esc_attr($id['purchase_id'] ) . '" class="required" type="text" placeholder="'. __('Please enter your purchase code', 'cw-verifi') .'"/></label></p>'
+		
+		);
+		
+		$defaults = array(
+			'fields' => apply_filters('cw_verifi_short_fields', $fields ),
+			'form_id' =>'cw-verifi-form',
+			'page_title' => __('Register New Account', 'cw-verifi'),
+		
+		);
+		
 	
-	?>
-	
-		<h3 class="cw-verifi-header"><?php _e('Register New Account', 'cw-verifi'); ?></h3> 
+		$args = wp_parse_args( $args, apply_filters('cw_verifi_form_defaults', $defaults ));
+		
+		?>	
+		
+		<h3 class="cw-verifi-header"><?php echo $args['page_title']; ?></h3>
 		
 		<?php $this->display_message(); ?>
 		
-		<form id="cw-verifi-form" class="verifi-form" action="" method="POST">
+		<form id="<?php echo $args['form_id']; ?>" class="verifi-form" action="" method="POST">
+		
+				<?php do_action('cw_verfifi_before_form_fields'); ?>
 			
+				<?php
+			
+				foreach ( (array) $args['fields'] as $name => $field ) {
+								echo apply_filters( "cw_registration_form_field_{$name}", $field ) . "\n";
+							}
+							
+				?>
+			
+				<?php do_action('cw_verfifi_after_form_fields'); ?>
+
 				<p>
 				
-					<label for="cw_verifi_user_name"><?php _e('Username', 'cw-verifi' ); ?><br />
+					<input type="hidden" name="<?php esc_attr_e($id['nonce_id']);  ?>" value="<?php echo wp_create_nonce($id['create_nonce']); ?>"/>
 				
-					<input name="cw_verifi_user_name" id="cw_verifi_user_name" class="required" type="text" placeholder="<?php _e('Please enter a unique username', 'cw-verifi');?>"/></label>
-				
-				</p>
-				<p>
-				
-					<label for="cw_verifi_user_email"><?php _e('Email', 'cw-verifi'); ?><br />
-				
-					<input name="cw_verifi_user_email" id="cw_verifi_user_email" class="required" type="text" placeholder="<?php _e('Please enter your email', 'cw-verifi');?>"/></label>
-				
-				</p>
-				
-				<p>
-				
-					<label for="cw_verifi_purchase_code"><?php _e('Purchase Code', 'cw-verifi'); ?><span>&nbsp;(<a class="thickbox" href="<?php echo  trailingslashit( CWV_IMAGES ) . 'purchasecode.jpg'; ?>">whats this</a>)</span><br />
-					
-					<input name="cw_verifi_purchase_code" id="cw_verifi_purchase_code" class="required" type="text" placeholder="<?php _e('Please enter your purchase code', 'cw-verifi');?>"/></label>
-				
-				</p>
-	
-				<p>
-				
-					<input type="hidden" name="cw_verifi_nonce" value="<?php echo wp_create_nonce('cw-verifi-nonce'); ?>"/>
-				
-					<input type="submit" id="cw_verifi_nonce" value="<?php _e('Register an Account', 'cw-verifi'); ?>"/>
+					<input type="submit" id="<?php  esc_attr_e($id['nonce_id'] ); ?>" value="<?php _e('Register an Account', 'cw-verifi'); ?>"/>
 				
 				</p>
 					
 		</form>
 		
 		<?php
-
 	}
 	
 	/**
@@ -201,13 +237,15 @@ class cw_Verfi_Shortcode {
 	 */
 	function register_new_user() {
 
-  		if (isset( $_POST["cw_verifi_user_name"] ) &&  wp_verify_nonce($_POST['cw_verifi_nonce'], 'cw-verifi-nonce')) {
+		$id = $this->get_ids();
+	
+  		if (isset( $_POST[ $id['username_id']] ) &&  wp_verify_nonce($_POST[$id['nonce_id']], $id['create_nonce'])) {
 			
-			$sanitized_user_login = sanitize_user($_POST["cw_verifi_user_name"]);	
+			$sanitized_user_login = sanitize_user($_POST[$id['username_id']]);	
 			
-			$user_email		= $_POST["cw_verifi_user_email"];
+			$user_email		= $_POST[$id['email_id']];
 			
-			$purchase_code = $_POST["cw_verifi_purchase_code"];
+			$purchase_code = $_POST[$id['purchase_id']];
 			
 		
 			if(username_exists($sanitized_user_login)) {
@@ -240,21 +278,23 @@ class cw_Verfi_Shortcode {
 			
 			}
 		
-			// Check the purchase code
 			if ( $purchase_code == '' ) {
-
+				
+				//empty purchase code
 				$this->errors()->add( 'empty_purchase_code', __( '<strong>ERROR</strong>: Please enter your purchase code', 'cw-verifi' ) );
 		
 			} elseif ( !cw_validate_api( $purchase_code, true ) ) {
 
+				//false purchase code
 				$this->errors()->add( 'invalid_purchase_code', __( '<strong>ERROR</strong>: Please enter a valid purchase code', 'cw-verifi' ) );
 
 			} elseif ( cw_purchase_exists( $purchase_code ) ) {
 
+				//purchase code already exists
 				$this->errors()->add( 'used_purchase_code', __( '<strong>ERROR</strong>: Sorry this purchase code exsits', 'cw-verifi' ) );
 
 			}
-
+			
 			if ( $this->errors()->get_error_code() ){
 	
 				$errors = $this->errors()->get_error_messages();
@@ -279,10 +319,11 @@ class cw_Verfi_Shortcode {
 
 			update_user_option( $user_id, 'default_password_nag', true, true ); 
 	
-			update_user_meta( $user_id, 'cw_purchase_code' , $purchase_code );
+			update_user_meta( $user_id, '_cw_purchase_code' , $purchase_code );
 
 			wp_new_user_notification( $user_id, $user_pass );
-
+			
+			
 			return $user_id;
 
 		}
@@ -300,14 +341,14 @@ class cw_Verfi_Shortcode {
 	
 		if($error_codes = $this->errors()->get_error_codes()) {
 			
-			echo '<div class="cw_verifi_errors">';
+			echo '<div class="cw-verifi-errors">';
 			
 			// Loop error codes and display errors
 			foreach($error_codes as $code){
 					        	
 		       	$message = $this->errors()->get_error_message($code);
 		        
-		       	echo '<span class="cw-error">' . $message . '</span><br/>';
+		       	echo '<span>' . $message . '</span><br/>';
 		        
 		   }
 		       
@@ -315,7 +356,7 @@ class cw_Verfi_Shortcode {
 		   
 		}elseif( $this->success != ''){
 			
-			echo '<span class="cw-success">' . $this->success . '</span>';
+			echo '<div class="cw-verifi-success"><span>' . $this->success . '</span></div>';
 		}
 	
 	}

@@ -51,13 +51,14 @@ function cw_get_user_by_meta_data( $meta_key, $meta_value ) {
 * Checks to see purchase already exists
 * 
 * @since 0.1
+* @uses cw_get_user_by_meta
 * @access public
 * @param mixed $cw_purcahse_code
 * @return bool
 */
 function cw_purchase_exists( $input ) {
 
-	if ( $user = cw_get_user_by_meta_data('cw_purchase_code', $input ) ) {
+	if ( $user = cw_get_user_by_meta_data('_cw_purchase_code', $input ) ) {
 	
 		return true;
 	

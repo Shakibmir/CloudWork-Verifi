@@ -255,7 +255,7 @@ final class cw_Verifi{
 		$meta = isset($_POST['cw_purchase_code']);
 	
 		//Add cw_purchase_code to db
-		update_user_meta( $user_id, 'cw_purchase_code' , $meta );
+		update_user_meta( $user_id, '_cw_purchase_code' , $meta );
 
 	}
 	
@@ -269,7 +269,7 @@ final class cw_Verifi{
 	 * @param mixed $login
 	 * @param mixed $email
 	 * @param mixed $errors
-	 * @return mixed
+	 * @return string
 	 */
 	function check_fields( $login, $email, $errors ){
 	
@@ -310,13 +310,13 @@ final class cw_Verifi{
 			
 			if( $this->username == ''){
 	
-			echo '<div class="error"><a href="'. $url .'"><p>' . __('Please enter a username', 'cw-verifi') . '</p></a></div>';
+			echo '<div class="error"><a href="'. $url .'"><p>' . __('Please enter your Envato username', 'cw-verifi') . '</p></a></div>';
 			
 			}
 			
 			if( $this->apikey == ''){
 	
-			echo '<div class="error"><a href="'. $url .'"><p>' . __('Please enter a API Key', 'cw-verifi') . '</p></a></div>';
+			echo '<div class="error"><a href="'. $url .'"><p>' . __('Please enter your Envato API Key', 'cw-verifi') . '</p></a></div>';
 			
 			}
 		
