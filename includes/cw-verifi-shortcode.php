@@ -162,7 +162,7 @@ class cw_Verfi_Shortcode {
 			'user_email' =>'<p>' . '<label for="' . esc_attr($id['email_id'] ) . '">'. __('Email', 'cw-verifi') . '<br />' .
 						   '<input name="' . esc_attr($id['email_id'] ) . '" id="' . esc_attr($id['email_id'] ) . '" class="required" type="text" placeholder="'. __('Please enter your email', 'cw-verifi').'"/></label></p>',
 			
-			'purchase_code' =>'<p>' . '<label for="' . esc_attr($id['purchase_id'] ) . '">'. __('Purchase Code', 'cw-verifi') . '><span>&nbsp;(<a class="thickbox" href="' . trailingslashit( CWV_IMAGES ) . 'purchasecode.jpg' .'">whats this</a>)</span>' .
+			'purchase_code' =>'<p>' . '<label for="' . esc_attr($id['purchase_id'] ) . '">'. __('Purchase Code', 'cw-verifi') . '<span>&nbsp;(<a class="thickbox" href="' . trailingslashit( CWV_IMAGES ) . 'purchasecode.jpg' .'">whats this</a>)</span>' .
 							  '<br /><input name="' . esc_attr($id['purchase_id'] ) . '" id="' . esc_attr($id['purchase_id'] ) . '" class="required" type="text" placeholder="'. __('Please enter your purchase code', 'cw-verifi') .'"/></label></p>'
 		
 		);
