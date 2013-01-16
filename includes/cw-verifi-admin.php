@@ -4,7 +4,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 /**
  * @package CloudWork Verifi
  * @subpackage cw-verifi-admin.php
- * @version 1.0
+ * @version 0.1.2
  * @author Chris Kelley <chris@organicbeemedia.com)
  * @copyright Copyright � 2013 CloudWork Themes
  * @link http://cloudworkthemes.com
@@ -56,14 +56,27 @@ final class cw_Verifi_admin{
 		
 		register_setting('cw_verifi_options', 'cw_verifi_options', array( $this, 'cw_verifi_options_validate') );
 	
-		add_settings_section('cw_verifi_general_settings', __('General Settings', 'cw-verifi') , '' , __FILE__);
+		add_settings_section('cw_verifi_general_settings', __('General Settings', 'cw-verifi') , array( $this, 'cw_setting_callback') , __FILE__);
 	
 		add_settings_field('cw_verifi_username', __('Envato Username', 'cw-verifi') , array( $this, 'cw_verifi_setting_username' ), __FILE__,'cw_verifi_general_settings');
 	
 		add_settings_field('cw_verifi_api_key', __('Envato API Key', 'cw-verifi') , array( $this, 'cw_verifi_setting_api') ,__FILE__, 'cw_verifi_general_settings');
 
 	}
+	
+	
+	/**
+	 * Callback String for the General Settings section
+	 * 
+	 * @since 0.1.2
+	 * @access public
+	 * @return string
+	 */
+	function  cw_setting_callback() {
 
+		echo '<p>This plugin adds an extra field to the wp-login.php registration form. <br /> You can also insert a form on the front-end with this shortcode <code>[cw-verifi-registration]</code></p>';
+	
+	}
 	/**
 	* Callback function for cw_verifi_username
 	* 

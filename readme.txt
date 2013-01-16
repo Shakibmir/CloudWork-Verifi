@@ -29,5 +29,7 @@ CloudWork Verifi is  easily installed automatically via the Plugins tab in your 
 
 == Changelog ==
 
+= 0.1.2 = bug fixes
+= 0.1.1 = typo fix
 = 0.1 =
 * First

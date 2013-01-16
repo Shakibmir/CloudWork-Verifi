@@ -4,7 +4,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 /**
  * @package CloudWork Verifi
  * @subpackage cw-verifi-functions.php
- * @version 1.0
+ * @version 0.1.2
  * @author Chris Kelley <chris@organicbeemedia.com)
  * @copyright Copyright © 2013 CloudWork Themes
  * @link http://cloudworkthemes.com
