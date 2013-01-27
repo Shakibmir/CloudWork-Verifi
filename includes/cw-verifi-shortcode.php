@@ -1,10 +1,9 @@
 <?php
-// Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+
 /**
  * @package CloudWork Verifi
  * @subpackage cw-verifi-shortcode.php
- * @version 0.1.2
+ * @version 0.2
  * @author Chris Kelley <chris@organicbeemedia.com)
  * @copyright Copyright © 2013 CloudWork Themes
  * @link http://cloudworkthemes.com
@@ -22,6 +21,9 @@ if ( !defined( 'ABSPATH' ) ) exit;
  *	display_message
  *
 */
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
 
 if ( !class_exists( 'cw_Verfi_Shortcode' ) ) :
 
@@ -319,8 +321,10 @@ class cw_Verfi_Shortcode {
 
 			update_user_option( $user_id, 'default_password_nag', true, true ); 
 	
-			update_user_meta( $user_id, '_cw_purchase_code' , $purchase_code );
-
+			$meta = cw_get_purchase_data($purchase_code);
+			
+			update_user_meta( $user_id, '_cw_purchase_code' , $meta );
+			
 			wp_new_user_notification( $user_id, $user_pass );
 			
 			
