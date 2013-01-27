@@ -1,6 +1,4 @@
 <?php
-// Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
 /**
  * @package CloudWork Verifi
  * @subpackage cw-verifi-functions.php
