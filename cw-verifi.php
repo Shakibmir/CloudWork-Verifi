@@ -1,11 +1,9 @@
 <?php
-// Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
 /*
 Plugin Name: CloudWork Verifi
 Plugin URI: http://cloudworkthemes.com
 Description: Uses Envato API to verify purchase at registration, prevents duplicate purchase codes
-Version: 0.1.2
+Version: 0.2
 Author: Chris Kelley <chris@organicbeemedia.com>
 Author URI: http://cloudworkthemes.com
 License: GPLv2
@@ -25,6 +23,9 @@ License: GPLv2
 *	check_field
 *
 */
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
 
 if ( !class_exists( 'cw_Verifi' ) ) :
 
@@ -246,16 +247,21 @@ final class cw_Verifi{
 	 * Updates User Meta with purchase code
 	 * 
 	 * @since 0.1
+	 * @uses cw_get_purcahse_data
 	 * @access public
 	 * @param mixed $user_id
 	 * @return void
 	 */
 	function register_field( $user_id ){
 	
-		$meta = isset($_POST['cw_purchase_code']);
+		if(isset($_POST['cw_purchase_code'])){
 	
-		//Add cw_purchase_code to db
-		update_user_meta( $user_id, '_cw_purchase_code' , $meta );
+			$meta = cw_get_purchase_data($_POST['cw_purchase_code']);			
+		
+			//Add all meta to db
+			update_user_meta( $user_id, '_cw_purchase_code' , $meta );
+			
+		}
 
 	}
 	
