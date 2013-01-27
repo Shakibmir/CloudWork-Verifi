@@ -1,10 +1,8 @@
 <?php
-// Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
 /**
  * @package CloudWork Verifi
  * @subpackage cw-verifi-admin.php
- * @version 0.1.2
+ * @version 0.2
  * @author Chris Kelley <chris@organicbeemedia.com)
  * @copyright Copyright � 2013 CloudWork Themes
  * @link http://cloudworkthemes.com
@@ -20,6 +18,10 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * cw_verifi_options_validate
  *
 */
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
 if ( !class_exists( 'cw_Verifi_admin' ) ) :
 
 final class cw_Verifi_admin{
