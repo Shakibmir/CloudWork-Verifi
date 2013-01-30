@@ -1,5 +1,5 @@
 === CloudWork Verifi ===
-Contributors: Chris Kelley
+Contributors: cloudworkthemes
 Donate link: 
 Tags: envato api themeforest login registration
 Requires at least: 3.5
@@ -11,7 +11,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Allows Envato authors to verify user purchases durning registration
 == Description ==
 
-This plugin requires a API key and user account from the [Envato network](http://envato.com) It also adds an extra fields to the wp-login.php registration form two that allow users to enter their own passwords and one validates purchases using the Envato API. After registration users are automaticlly login in and redirected to the home page which can be filtered to redirect elsewhere.  This plugin currently has two shortcodes [cw-verifi-registration] which allows for user registration via the frontend and [cw-new-user]Hi new user![/cw-new-user] which allows to display a message to new users for the first 10 minutes they are logged in.
+This plugin requires a API key and user account from the [Envato network](http://envato.com) 
+
+It also adds an extra fields to the wp-login.php registration form two that allow users to enter their own passwords and one validates purchases using the Envato API. 
+
+After registration users are automaticlly login in and redirected to the home page which can be filtered to redirect elsewhere.
+
+This plugin currently has two shortcodes [cw-verifi-registration] which allows for user registration via the frontend and [cw-new-user]Hi new user![/cw-new-user] which allows to display a message to new users for the first 10 minutes they are logged in.
 
 == Installation ==
 
@@ -34,11 +40,13 @@ Currently that is not supported
 
 Currently that is not supported, but may be in future release
 
-= Where can I report a bug=
+= Where can I report a bug =
 
 the best place is either my twitter @chrisakelley or on the [GitHub page](https://github.com/chrisakelley/CloudWork-Verifi)
 
 == Changelog ==
+= 0.3.1 =
+* fixed repo bug breaking plugin
 
 = 0.3 =
 * Users can now enter their own passwords, passwords required at least 6 characters

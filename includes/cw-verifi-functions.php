@@ -2,7 +2,7 @@
 /**
  * @package CloudWork Verifi
  * @subpackage cw-verifi-functions.php
- * @version 0.2
+ * @version 0.2.1
  * @author Chris Kelley <chris@organicbeemedia.com)
  * @copyright Copyright © 2013 CloudWork Themes
  * @link http://cloudworkthemes.com
