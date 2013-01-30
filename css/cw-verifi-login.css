@@ -1,0 +1,11 @@
+.cw-error{
+	display: block;
+	padding: 5px 8px 5px 8px; 		
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 1px;
+	background-color: rgb(255,235,232);
+	border-color:rgb(204,0,0);
+	color: rgb(204,0,0);
+	margin-bottom: 175px;
+ }
