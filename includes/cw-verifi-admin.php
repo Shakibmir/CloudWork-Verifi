@@ -2,7 +2,7 @@
 /**
  * @package CloudWork Verifi
  * @subpackage cw-verifi-admin.php
- * @version 0.2
+ * @version 0.3
  * @author Chris Kelley <chris@organicbeemedia.com)
  * @copyright Copyright � 2013 CloudWork Themes
  * @link http://cloudworkthemes.com
@@ -43,7 +43,7 @@ final class cw_Verifi_admin{
 	*/
 	function add_page() {
 
-		add_options_page('CloudWork Verifi', 'CW Verifi', 'manage_options', 'cw-verifi-options', array( $this ,'cw_verifi_options_page' ));
+		add_options_page('CloudWork Verifi', 'CW Verifi', 'manage_options', 'cw-verifi-options', array( &$this ,'cw_verifi_options_page' ));
 
 	}
 	
@@ -56,13 +56,13 @@ final class cw_Verifi_admin{
 	*/
 	function init(){
 		
-		register_setting('cw_verifi_options', 'cw_verifi_options', array( $this, 'cw_verifi_options_validate') );
+		register_setting('cw_verifi_options', 'cw_verifi_options', array( &$this, 'cw_verifi_options_validate') );
 	
-		add_settings_section('cw_verifi_general_settings', __('General Settings', 'cw-verifi') , array( $this, 'cw_setting_callback') , __FILE__);
+		add_settings_section('cw_verifi_general_settings', __('General Settings', 'cw-verifi') , array( &$this, 'cw_setting_callback') , __FILE__);
 	
-		add_settings_field('cw_verifi_username', __('Envato Username', 'cw-verifi') , array( $this, 'cw_verifi_setting_username' ), __FILE__,'cw_verifi_general_settings');
+		add_settings_field('cw_verifi_username', __('Envato Username', 'cw-verifi') , array( &$this, 'cw_verifi_setting_username' ), __FILE__,'cw_verifi_general_settings');
 	
-		add_settings_field('cw_verifi_api_key', __('Envato API Key', 'cw-verifi') , array( $this, 'cw_verifi_setting_api') ,__FILE__, 'cw_verifi_general_settings');
+		add_settings_field('cw_verifi_api_key', __('Envato API Key', 'cw-verifi') , array( &$this, 'cw_verifi_setting_api') ,__FILE__, 'cw_verifi_general_settings');
 
 	}
 	
