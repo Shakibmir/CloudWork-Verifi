@@ -3,20 +3,25 @@
 Plugin Name: CloudWork Verifi
 Plugin URI: http://cloudworkthemes.com
 Description: Uses Envato API to verify purchase at registration, prevents duplicate purchase codes
-Version: 0.3.1
+Version: 0.4
 Author: Chris Kelley <chris@organicbeemedia.com>
 Author URI: http://cloudworkthemes.com
 License: GPLv2
 *
 * Table of Contents
 *
+* register_activation_hook
+* register_deactivation_hook
+*
 * Class cw_Verifi
-* 	__contstruct
+*
 *	instance
 *	constants
 *	includes
 *	globals
 *	load_textdomain
+*	install
+*	deactivate
 *
 */
 
@@ -29,13 +34,13 @@ final class cw_Verifi{
 	
 	public static $instance;
 	
+	public $envato; 		
+
 	private $options;
 	
 	private $apikey;
 	
 	public $username;
-	
-	public $envato; 		
 
 	/**
 	 * __construct function.
@@ -46,8 +51,7 @@ final class cw_Verifi{
 	 */
 	private function __construct(){
 
-		add_action('admin_notices', array( $this, 'admin_notice' ));
-
+		add_action('init', array( &$this , 'register_scripts' ));
 	}
 	
 	/**
@@ -85,7 +89,7 @@ final class cw_Verifi{
 	
 		if( !defined( 'CWV_VERSION' )){
 		
-			define( 'CWV_VERSION', '1.0' );
+			define( 'CWV_VERSION', '0.4' );
 			
 		}
 		
@@ -94,22 +98,31 @@ final class cw_Verifi{
 			define( 'CWV_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 	
 		}
+		if( !defined( 'CWV_PLUGIN_DIR' )){
+		
+			define( 'CWV_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+			
+		}
+		if( !defined( 'CWV_MEDIA' )){
+		
+			define( 'CWV_MEDIA', trailingslashit( CWV_PLUGIN_URL ) . 'media' );
 	
+		}
 		if( !defined( 'CWV_IMAGES' )){
 		
-			define( 'CWV_IMAGES', trailingslashit( CWV_PLUGIN_URL ) . 'images' );
+			define( 'CWV_IMAGES', trailingslashit( CWV_MEDIA ) . 'images' );
 	
 		}
 		
 		if( !defined( 'CWV_CSS' )){
 		
-			define( 'CWV_CSS', trailingslashit( CWV_PLUGIN_URL ) . 'css' );
+			define( 'CWV_CSS', trailingslashit( CWV_MEDIA ) . 'css' );
 	
 		}
 		
 		if( !defined( 'CWV_JS' )){
 		
-			define( 'CWV_JS', trailingslashit( CWV_PLUGIN_URL ) . 'javascript' );
+			define( 'CWV_JS', trailingslashit( CWV_MEDIA ) . 'javascript' );
 			
 		}
 		
@@ -119,18 +132,22 @@ final class cw_Verifi{
 	
 		}
 		
-		if( !defined( 'CWV_PLUGIN_DIR' )){
-		
-			define( 'CWV_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-			
-		}
-		
 		if( !defined( 'CWV_INCLUDES' )){
 		
 			define( 'CWV_INCLUDES', trailingslashit( CWV_PLUGIN_DIR ) . 'includes' );
 			
 		}
+		if( !defined( 'CWV_SHORTCODES' )){
+		
+			define( 'CWV_SHORTCODES', trailingslashit( CWV_INCLUDES ) . 'shortcodes' );
 			
+		}
+		if( !defined( 'CWV_ADMIN' )){
+		
+			define( 'CWV_ADMIN', trailingslashit( CWV_PLUGIN_DIR ) . 'admin' );
+			
+		}
+				
 		
 	}
 	
@@ -143,23 +160,21 @@ final class cw_Verifi{
 	 */
 	private function includes(){
 		
-		//Loads Envato Marketplace Class by @Jeffery Way
-		require_once trailingslashit( CWV_INCLUDES ) . 'envato-marketplaces.php';
-		
-		require_once trailingslashit( CWV_INCLUDES ) . 'cw-verifi-functions.php';
-
-		require_once trailingslashit( CWV_INCLUDES ) . 'cw-verifi-login.php';
-
-		require_once trailingslashit( CWV_INCLUDES ) . 'cw-verifi-shortcode.php';
-		
-		require_once trailingslashit( CWV_INCLUDES ) . 'cw-verifi-usershort.php';
-
-
 		if( is_admin()){
 	
-			require_once trailingslashit( CWV_INCLUDES ) . 'cw-verifi-admin.php';
+			require_once trailingslashit( CWV_ADMIN ) . 'admin-loader.php';
 		
 		}
+		
+		require_once trailingslashit( CWV_INCLUDES ) . 'class-cw-envato-api.php';
+		
+		require_once trailingslashit( CWV_INCLUDES ) . 'utility-functions.php';
+
+		require_once trailingslashit( CWV_INCLUDES ) . 'registration-form.php';
+
+		require_once trailingslashit( CWV_SHORTCODES ) . 'registration-shortcode.php';
+		
+		require_once trailingslashit( CWV_SHORTCODES ) . 'user-shortcodes.php';
 
 	}
 	
@@ -175,13 +190,11 @@ final class cw_Verifi{
 		$this->options = get_option('cw_verifi_options');
 		
 		$this->username = $this->options['username'];
-
+		
 		$this->apikey = $this->options['api_key'];
 		
-		$this->envato = new Envato_marketplaces();
-		
-		$this->envato->set_api_key( $this->apikey );
-	
+		$this->envato = new cw_WP_EnvatoAPI( $this->username , $this->apikey);
+			
 	}
 
 	/**
@@ -193,47 +206,59 @@ final class cw_Verifi{
 	 */
 	public function load_textdomain(){
 		
-		load_plugin_textdomain('cw-verifi', false, CWV_LANG );
+		load_plugin_textdomain('cw_verifi', false, CWV_LANG );
 
 	}
 	
 	/**
-	 * Creates Error notices if options arent set.
+	 * register_scripts function.
 	 * 
+	 * @since 0.4
 	 * @access public
-	 * @param mixed $message
 	 * @return void
 	 */
-	function admin_notice(){
-	
-		//Wrap notices with link to options page
-		$url = admin_url( 'options-general.php?page=cw-verifi-options' );
-	
-		//Dont display if user cant manage options
-		if ( current_user_can( 'manage_options' ) ){
-			
-			if( $this->username == ''){
-	
-			echo '<div class="error"><a href="'. $url .'"><p>' . __('Please enter your Envato username', 'cw-verifi') . '</p></a></div>';
-			
-			}
-			
-			if( $this->apikey == ''){
-	
-			echo '<div class="error"><a href="'. $url .'"><p>' . __('Please enter your Envato API Key', 'cw-verifi') . '</p></a></div>';
-			
-			}
+	function register_scripts(){
 		
-		}
+		wp_register_script( 'cw-pass-strength', trailingslashit( CWV_JS ) . 'cw.jquery.password.js', array('jquery'), CWV_VERSION , true );
+	
+	}
+	/**
+	 * install function.
+	 * 
+	 * @since 0.4
+	 * @access public
+	 * @return void
+	 */
+	function install(){
+
+		do_action('cw_verifi_install');
 		
 	}
+	
+	/**
+	 * deactivate function.
+	 * 
+	 * @since 0.4
+	 * @access public
+	 * @return voidå
+	 */
+	function deactivate(){
+	
+		do_action('cw_verifi_deactivate');
+		
+	}
+
 	
 
 }//Ends Class
 
-endif; //end if 
+register_activation_hook( __FILE__, array('cw_Verifi', 'install') );
+
+register_deactivation_hook(__FILE__, array('cw_Verifi', 'deactivate') );
 
 //Jedi Mind Tricks
 $verifi = cw_Verifi::instance();
 //May the force be with you
+
+endif; //end if 
 ?>
