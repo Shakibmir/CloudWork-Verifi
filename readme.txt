@@ -46,6 +46,13 @@ the best place is either my twitter @chrisakelley or on the [GitHub page](https:
 
 == Changelog ==
 
+= 0.4.2 =
+* no really bug fixes
+
+= 0.4.1 =
+
+* bug fix
+
 = 0.4 =
 
 * New class for handling the Envato API
