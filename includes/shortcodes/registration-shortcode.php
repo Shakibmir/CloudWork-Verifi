@@ -153,19 +153,7 @@ final class cwv_Registration_Shortcode {
 					$redirect_url = $options['cw_redirect_url'];
 
 					$redirect_to = apply_filters( 'cw_verifi_redirect', !empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : $redirect_url );
-				
-					ob_start();
-
-					if(!isset($_COOKIE['cw_verifi_new_user'])){
-					
-						setcookie('cw_verifi_new_user', 1,  time() + (60 * 60), COOKIEPATH, COOKIE_DOMAIN, false );
-			
-						
-			
-					}	
-					
-					ob_end_flush();	
-										
+												
 					wp_safe_redirect( $redirect_to );
 				
 					exit();

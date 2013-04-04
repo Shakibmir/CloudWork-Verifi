@@ -247,6 +247,17 @@ function cw_verifi_register_user($user_login, $user_email, $user_pass, $confirm_
 		update_user_meta( $user_id, '_cw_purchase_code' , $meta );
 				
 		wp_new_user_notification( $user_id );	
+		
+		//Lets set a cookie for 60 minutes so we can display cool messages 
+		if(!isset($_COOKIE['cw_verifi_new_user'])){
+		
+			ob_start();
+			
+			setcookie('cw_verifi_new_user', 1,  time() + (60 * 60), COOKIEPATH, COOKIE_DOMAIN, false );
+			
+			ob_end_flush();
+			
+		}
 			
 		$credentials = array();
 		
