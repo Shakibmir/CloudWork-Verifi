@@ -117,9 +117,7 @@ final class cwv_Registration_Shortcode {
 	 * @todo filter
 	 */
 	function registration($args = array()){
-		
-		ob_start();
-		
+	
 		if (isset( $_POST['cw_verifi_user_name'] ) &&  wp_verify_nonce($_POST['cw_verifi_nonce'], 'cw-verifi-nonce')) {
 			
 			$http_post = ('POST' == $_SERVER['REQUEST_METHOD']);
@@ -155,6 +153,18 @@ final class cwv_Registration_Shortcode {
 					$redirect_url = $options['cw_redirect_url'];
 
 					$redirect_to = apply_filters( 'cw_verifi_redirect', !empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : $redirect_url );
+				
+					ob_start();
+
+					if(!isset($_COOKIE['cw_verifi_new_user'])){
+					
+						setcookie('cw_verifi_new_user', 1,  time() + (60 * 60), COOKIEPATH, COOKIE_DOMAIN, false );
+			
+						
+			
+					}	
+					
+					ob_end_flush();	
 										
 					wp_safe_redirect( $redirect_to );
 				
@@ -178,9 +188,7 @@ final class cwv_Registration_Shortcode {
 				}
 		
 			}
-			
-		ob_end_flush();	
-
+		
 		}
 		
 		$fields = array(

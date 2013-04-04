@@ -256,11 +256,6 @@ function cw_verifi_register_user($user_login, $user_email, $user_pass, $confirm_
 		
 		$credentials['remember'] = true;
 		
-		if(!isset($_COOKIE['cw_verifi_new_user'])){
-				
-			setcookie('cw_verifi_new_user', 1,  time() + (60 * 60), COOKIEPATH, COOKIE_DOMAIN, false );
-		}	
-		
 		wp_signon( $credentials );
 		
 		return $user_id;
