@@ -51,6 +51,8 @@ class cw_Verfi_Registration {
 	 */
 	function register_form(){
 	
+		ob_start();
+
 		if( $_REQUEST['action'] = 'register'){
 			
 			$http_post = ('POST' == $_SERVER['REQUEST_METHOD']);
@@ -104,19 +106,6 @@ class cw_Verfi_Registration {
 					$redirect_url = $options['cw_redirect_url'];
 
 					$redirect_to = apply_filters( 'cw_verifi_redirect', !empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : $redirect_url );
-							//Lets set a cookie for 60 minutes so we can display cool messages 
-					
-					ob_start();
-
-					if(!isset($_COOKIE['cw_verifi_new_user'])){
-					
-						setcookie('cw_verifi_new_user', 1,  time() + (60 * 60), COOKIEPATH, COOKIE_DOMAIN, false );
-			
-						
-			
-					}	
-					
-					ob_end_flush();
 					
 					wp_safe_redirect( $redirect_to );
 				
@@ -199,9 +188,10 @@ class cw_Verfi_Registration {
 
 		login_footer('user_login');
 		
+		 ob_end_clean();
+
 		//This prevents the switch from running and duplicating login form
 		exit;
-		
 		}
 		
 	}
