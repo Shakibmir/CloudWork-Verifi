@@ -248,6 +248,17 @@ function cw_verifi_register_user($user_login, $user_email, $user_pass, $confirm_
 				
 		wp_new_user_notification( $user_id );	
 		
+		//Lets set a cookie for 60 minutes so we can display cool messages 
+		if(!isset($_COOKIE['cw_verifi_new_user'])){
+		
+			ob_start();
+			
+			setcookie('cw_verifi_new_user', 1,  time() + (60 * 60), COOKIEPATH, COOKIE_DOMAIN, false );
+			
+			ob_end_flush();
+			
+		}
+			
 		$credentials = array();
 		
 		$credentials['user_login'] = $user_login;
@@ -261,21 +272,7 @@ function cw_verifi_register_user($user_login, $user_email, $user_pass, $confirm_
 		return $user_id;
 
 }
-add_action('user_register','cw_set_cookie' );
 
-function cw_set_cookie(){
-
-	ob_start();
-
-	if(!isset($_COOKIE['cw_verifi_new_user'])){
-		
-		setcookie('cw_verifi_new_user', 1,  time() + (60 * 60), COOKIEPATH, COOKIE_DOMAIN, false );
-					
-	}
-	
-	ob_end_flush();
-	
-}
 /**
  * Pretty Print is a utility function for testing stuff!!!
  * 

@@ -161,6 +161,6 @@ final class cw_VerifiAdmin_loader{
 endif; //end if class exists
 
 //High Five
-$cwtu_admin_loader = new cw_VerifiAdmin_loader;
+$cwtu_admin_loader = new cw_VerifiAdmin_loader();
 //Low Five
 ?>

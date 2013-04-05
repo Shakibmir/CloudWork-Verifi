@@ -613,5 +613,4 @@ function cwv_medialibrary_uploader( $_id, $_value, $_desc = '', $_name = '', $se
 	return $output;
 
 }
-
 ?>

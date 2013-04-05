@@ -13,6 +13,15 @@ Todo
 
 Change Log
 -----------------
+
+= 0.4.2 =
+
+* bug fix
+
+= 0.4.1 =
+
+* bug fix
+
 = 0.4 =
 
 * New class for handling the Envato API

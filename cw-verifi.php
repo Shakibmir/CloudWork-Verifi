@@ -231,7 +231,6 @@ final class cw_Verifi{
 	 */
 	function install(){
 
-		do_action('cw_verifi_install');
 		
 	}
 	
@@ -244,7 +243,6 @@ final class cw_Verifi{
 	 */
 	function deactivate(){
 	
-		do_action('cw_verifi_deactivate');
 		
 	}
 
@@ -252,9 +250,9 @@ final class cw_Verifi{
 
 }//Ends Class
 
-register_activation_hook( __FILE__, array('cw_Verifi', 'install') );
+//register_activation_hook( __FILE__, array('cw_Verifi', 'install') );
 
-register_deactivation_hook(__FILE__, array('cw_Verifi', 'deactivate') );
+//register_deactivation_hook(__FILE__, array('cw_Verifi', 'deactivate') );
 
 //Jedi Mind Tricks
 $verifi = cw_Verifi::instance();
