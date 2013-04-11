@@ -3,7 +3,7 @@
 Plugin Name: CloudWork Verifi
 Plugin URI: http://cloudworkthemes.com
 Description: Uses Envato API to verify purchase at registration, prevents duplicate purchase codes
-Version: 0.4.2
+Version: 0.4.3
 Author: Chris Kelley <chris@organicbeemedia.com>
 Author URI: http://cloudworkthemes.com
 License: GPLv2

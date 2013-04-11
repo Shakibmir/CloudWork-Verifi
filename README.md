@@ -13,6 +13,10 @@ Todo
 
 Change Log
 -----------------
+= 0.4.3 =
+
+* Reverted to some older code
+* Simplified shortcode
 
 = 0.4.2 =
 

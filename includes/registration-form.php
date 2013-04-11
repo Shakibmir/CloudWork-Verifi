@@ -103,7 +103,7 @@ class cw_Verfi_Registration {
 					
 					$redirect_url = $options['cw_redirect_url'];
 
-					$redirect_to = apply_filters( 'cw_verifi_redirect', !empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : $redirect_url );
+					$redirect_to = apply_filters( 'cw_verifi_redirect', !empty( $_REQUEST['redirect_to'] ) ? $_REsQUEST['redirect_to'] : $redirect_url );
 												
 					wp_safe_redirect( $redirect_to );
 				
@@ -152,8 +152,9 @@ class cw_Verfi_Registration {
 					<input type="password" name="confirm_pass" id="confirm_pass" class="input cw_confirm" value="<?php echo esc_attr(stripslashes($confirm_pass)); ?>" size="25" /></label>
 				
 				</p>
+				
 				<div id="pass-strength-result"><?php _e('Strength indicator'); ?></div>
-								<br class="clear" />
+				
 
 				<p>
 					

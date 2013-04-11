@@ -45,6 +45,11 @@ Currently that is not supported, but may be in future release
 the best place is either my twitter @chrisakelley or on the [GitHub page](https://github.com/chrisakelley/CloudWork-Verifi)
 
 == Changelog ==
+= 0.4.3 =
+
+* Reverted to some older code
+* Simplified shortcode
+
 = 0.4.2 =
 
 * no really bug fixes
