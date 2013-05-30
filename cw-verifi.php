@@ -35,8 +35,6 @@ final class cw_Verifi{
 	public static $instance;
 	
 	public $envato; 		
-
-	private $options;
 	
 	private $apikey;
 	
@@ -190,15 +188,13 @@ final class cw_Verifi{
 	 * @return void
 	 */
 	public function globals(){
-	
-		$this->options = get_option('cw_verifi_options');
+			
+		$this->username = cw_get_option('cw_verifi_options' , 'username');
 		
-		$this->username = $this->options['username'];
-		
-		$this->apikey = $this->options['api_key'];
+		$this->apikey = cw_get_option('cw_verifi_options' , 'api_key');;
 		
 		$this->envato = new cw_WP_EnvatoAPI( $this->username , $this->apikey);
-			
+	
 	}
 
 	/**

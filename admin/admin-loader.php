@@ -32,7 +32,7 @@ final class cwv_AdminLoader{
 		
 		add_action('admin_init', array( &$this, 'register_scripts'));
 		
-		//add_action('admin_notices', array( &$this, 'admin_notice' ));
+		add_action('admin_notices', array( &$this, 'admin_notice' ));
 		
 		$this->includes();
 
@@ -135,20 +135,20 @@ final class cwv_AdminLoader{
 	function admin_notice(){
 	
 		//Wrap notices with link to options page
-		$url = admin_url( 'options-general.php?page=cw-verifi-options' );
+		$url = admin_url( 'options-general.php?page=cwv-general' );
 	
 		//Dont display if user cant manage options
 		if ( current_user_can( 'manage_options' ) ){
 			
-			if( $this->username == ''){
+			if( cw_get_option('cw_verifi_options' , 'username') == ''){
 	
-			echo '<div class="error"><a href="'. $url .'"><p>' . __('Please enter your Envato username', 'cw-verifi') . '</p></a></div>';
+			echo '<div class="error"><strong><a href="'. $url .'"><p>' . __('Please enter your Envato username', 'cw_verifi') . '</p></a></strong></div>';
 			
 			}
 			
-			if( $this->apikey == ''){
+			if( cw_get_option('cw_verifi_options' , 'api_key') == ''){
 	
-			echo '<div class="error"><a href="'. $url .'"><p>' . __('Please enter your Envato API Key', 'cw-verifi') . '</p></a></div>';
+			echo '<div class="error"><strong><a href="'. $url .'"><p>' . __('Please enter your Envato API Key', 'cw_verifi') . '</p></a></strong></div>';
 			
 			}
 		

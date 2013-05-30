@@ -631,11 +631,26 @@ function cw_medialibrary_uploader( $_id, $_value, $_desc = '', $_name = '', $sec
 
 }//End function_exists
 
-
 if ( ! function_exists( 'cw_get_option' ) ){
 
-function cw_get_option( $option, $set ){
+function cw_get_option( $set , $option, $default = false ){
+
+	$config = get_option( $set );
 	
+	if ( ! isset($config)){
+		
+		return $default;
+		
+	}
+
+	$options = $config[$option];
+	
+	if ( isset( $options ) ) {
+		
+		return $options;
+	}
+	
+	return $default;
 	
 }
 
