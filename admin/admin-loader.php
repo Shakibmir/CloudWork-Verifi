@@ -109,13 +109,13 @@ final class cwv_AdminLoader{
 	 * @return void
 	 */
 	function includes(){
-	
+				require_once trailingslashit( CWV_ADMIN ) . 'admin-functions.php';
+
 		//We Should already be in admin from the core loader but lets make sure
 		if( is_admin()){
 		
 			require_once trailingslashit( CWV_ADMIN ) . 'settings.php';
 
-			require_once trailingslashit( CWV_ADMIN ) . 'admin-functions.php';
 		
 			require_once trailingslashit( CWV_ADMIN ) . 'admin-sanitize.php';
 			

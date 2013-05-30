@@ -161,10 +161,10 @@ final class cw_Verifi{
 	 * @return void
 	 */
 	private function includes(){
-		
+					require_once trailingslashit( CWV_ADMIN ) . 'admin-loader.php';
+
 		if( is_admin()){
 	
-			require_once trailingslashit( CWV_ADMIN ) . 'admin-loader.php';
 		
 		}
 		
