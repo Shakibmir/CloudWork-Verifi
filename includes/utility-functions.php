@@ -21,19 +21,6 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 /**
-*
-* This function is no longer used as of 0.2, depricated in 0.4 will remove in later versions.
-*
-*/
-function cw_get_user_by_meta_data( $meta_key, $meta_value ) {
-
-	_deprecated_function( __FUNCTION__, '0.4' );
-	
-	return false;
-
-}
-	
-/**
 * Checks to see purchase already exists
 * 
 * @since 0.1
@@ -58,7 +45,7 @@ function cw_purchase_exists( $input ) {
 		)
 	);
 		
-	if ( 	$users = $user_query->get_results() ) {
+	if ( $users = $user_query->get_results() ) {
 	
 		return true;
 	
@@ -273,6 +260,7 @@ function cw_verifi_register_user($user_login, $user_email, $user_pass, $confirm_
 
 }
 
+if ( ! function_exists('cw_pretty_print') ) {
 /**
  * Pretty Print is a utility function for testing stuff!!!
  * 
@@ -287,6 +275,8 @@ function cw_pretty_print($array){
     print_r( $array );
     echo '</pre>';
     
+}
+
 }
 //I have no legs, I have no legs.
 ?>

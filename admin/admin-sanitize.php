@@ -12,24 +12,25 @@
  *
  * Table Of Contents
  *
- * cwv_sanitize_text
- * cwv_sanitize_checkbox
- * cwv_sanitize_multicheck
- * cwv_sanitize_upload
- * cwv_sanitize_editor
- * cwv_sanitize_allowedtags
- * cwv_sanitize_hex
- * cwv_validate_hex
+ * cw_sanitize_text
+ * cw_sanitize_checkbox
+ * cw_sanitize_multicheck
+ * cw_sanitize_upload
+ * cw_sanitize_editor
+ * cw_sanitize_allowedtags
+ * cw_sanitize_hex
+ * cw_validate_hex
  *
  */
 /*
 
 /* Text */
 
-add_filter( 'cwv_sanitize_text', 'sanitize_text_field' );
+add_filter( 'cw_sanitize_text', 'sanitize_text_field' );
 
+if ( ! function_exists('cw_sanitize_textarea')) {
 /* Textarea */
-add_filter( 'cwv_sanitize_textarea', 'cwv_sanitize_textarea' );
+add_filter( 'cw_sanitize_textarea', 'cw_sanitize_textarea' );
 
 /**
  * Sanitize Textarea
@@ -39,7 +40,7 @@ add_filter( 'cwv_sanitize_textarea', 'cwv_sanitize_textarea' );
  * @param mixed $input
  * @return string
  */
-function cwv_sanitize_textarea($input) {
+function cw_sanitize_textarea($input) {
 	
 	global $allowedposttags;
 	
@@ -47,8 +48,13 @@ function cwv_sanitize_textarea($input) {
 	
 	return $output;
 }
+
+}//End function_exists
+
+if ( ! function_exists('cw_sanitize_code')) {
+
 /* Textarea */
-add_filter( 'cwv_sanitize_code', 'cwv_sanitize_code' );
+add_filter( 'cw_sanitize_code', 'cw_sanitize_code' );
 
 /**
  * Sanitize Textarea
@@ -58,7 +64,7 @@ add_filter( 'cwv_sanitize_code', 'cwv_sanitize_code' );
  * @param mixed $input
  * @return string
  */
-function cwv_sanitize_code($input) {
+function cw_sanitize_code($input) {
 
 	global $allowedposttags;
 	
@@ -68,9 +74,12 @@ function cwv_sanitize_code($input) {
 
 }
 
+}//End function_exists
+
+if ( ! function_exists('cw_sanitize_checkbox')) {
 
 /* Checkbox */
-add_filter( 'cwv_sanitize_checkbox', 'cwv_sanitize_checkbox' );
+add_filter( 'cw_sanitize_checkbox', 'cw_sanitize_checkbox' );
 
 /**
  * Sanitize Checkbox
@@ -80,7 +89,7 @@ add_filter( 'cwv_sanitize_checkbox', 'cwv_sanitize_checkbox' );
  * @param mixed $input
  * @return int|bool
  */
-function cwv_sanitize_checkbox( $input ) {
+function cw_sanitize_checkbox( $input ) {
 	
 	if ( $input ) {
 		
@@ -95,8 +104,12 @@ function cwv_sanitize_checkbox( $input ) {
 	return $output;
 }
 
+}//End function_exists
+
+if ( ! function_exists('cw_sanitize_multicheck')) {
+
 //
-add_filter( 'cwv_sanitize_multicheck', 'cwv_sanitize_multicheck', 10, 2 );
+add_filter( 'cw_sanitize_multicheck', 'cw_sanitize_multicheck', 10, 2 );
 
 /**
  * Sanitize Multicheck 
@@ -107,7 +120,7 @@ add_filter( 'cwv_sanitize_multicheck', 'cwv_sanitize_multicheck', 10, 2 );
  * @param mixed $option
  * @return int
  */
-function cwv_sanitize_multicheck( $input, $option ) {
+function cw_sanitize_multicheck( $input, $option ) {
 	
 	$output = '';
 	
@@ -134,11 +147,12 @@ function cwv_sanitize_multicheck( $input, $option ) {
 	return $output;
 }
 
+}//End function_exists
 
-
+if ( ! function_exists('cw_sanitize_upload')) {
 
 /* Uploader */
-add_filter( 'cwv_sanitize_upload', 'cwv_sanitize_upload' );
+add_filter( 'cw_sanitize_upload', 'cw_sanitize_upload' );
 
 /**
  * Sanitize Upload
@@ -148,7 +162,7 @@ add_filter( 'cwv_sanitize_upload', 'cwv_sanitize_upload' );
  * @param mixed $input
  * @return string
  */
-function cwv_sanitize_upload( $input ) {
+function cw_sanitize_upload( $input ) {
 	
 	$output = '';
 	
@@ -164,9 +178,13 @@ function cwv_sanitize_upload( $input ) {
 
 }
 
+}//End function_exists
+
+
+if ( ! function_exists('cw_sanitize_editor')) {
 
 /* Editor */
-add_filter( 'cwv_sanitize_editor', 'cwv_sanitize_editor' );
+add_filter( 'cw_sanitize_editor', 'cw_sanitize_editor' );
 
 
 /**
@@ -177,7 +195,7 @@ add_filter( 'cwv_sanitize_editor', 'cwv_sanitize_editor' );
  * @param mixed $input
  * @return string
  */
-function cwv_sanitize_editor($input) {
+function cw_sanitize_editor($input) {
 	
 	if ( current_user_can( 'unfiltered_html' ) ) {
 	
@@ -195,6 +213,10 @@ function cwv_sanitize_editor($input) {
 
 }
 
+}//End function_exists
+
+if ( ! function_exists('cw_sanitize_allowedtags')) {
+
 /**
  * Allowed Tags.
  * 
@@ -203,7 +225,7 @@ function cwv_sanitize_editor($input) {
  * @param mixed $input
  * @return string
  */
-function cwv_sanitize_allowedtags($input) {
+function cw_sanitize_allowedtags($input) {
 	
 	global $allowedtags;
 	
@@ -213,8 +235,11 @@ function cwv_sanitize_allowedtags($input) {
 
 }
 
+}//End function_exists
+if ( ! function_exists('cw_sanitize_allowedposttags')) {
+
 //
-add_filter( 'cwv_sanitize_info', 'cwv_sanitize_allowedposttags' );
+add_filter( 'cw_sanitize_info', 'cw_sanitize_allowedposttags' );
 
 /**
  * Allowed Post Tags.
@@ -224,7 +249,7 @@ add_filter( 'cwv_sanitize_info', 'cwv_sanitize_allowedposttags' );
  * @param mixed $input
  * @return string
  */
-function cwv_sanitize_allowedposttags($input) {
+function cw_sanitize_allowedposttags($input) {
 	
 	global $allowedposttags;
 	
@@ -233,11 +258,13 @@ function cwv_sanitize_allowedposttags($input) {
 	return $output;
 
 }
+}//End function_exists
+if ( ! function_exists('cw_sanitize_enum')) {
 
 //
-add_filter( 'cwv_sanitize_select', 'cwv_sanitize_enum', 10, 2);
-add_filter( 'cwv_sanitize_radio', 'cwv_sanitize_enum', 10, 2);
-add_filter( 'cwv_sanitize_images', 'cwv_sanitize_enum', 10, 2);
+add_filter( 'cw_sanitize_select', 'cw_sanitize_enum', 10, 2);
+add_filter( 'cw_sanitize_radio', 'cw_sanitize_enum', 10, 2);
+add_filter( 'cw_sanitize_images', 'cw_sanitize_enum', 10, 2);
 
 /**
  * Check that the key value sent is valid
@@ -248,7 +275,7 @@ add_filter( 'cwv_sanitize_images', 'cwv_sanitize_enum', 10, 2);
  * @param mixed $option
  * @return mixed
  */
-function cwv_sanitize_enum( $input, $option ) {
+function cw_sanitize_enum( $input, $option ) {
 	
 	$output = '';
 	
@@ -260,9 +287,11 @@ function cwv_sanitize_enum( $input, $option ) {
 	
 	return $output;
 }
+}//End function_exists
+if ( ! function_exists('cw_sanitize_hex')) {
 
 //
-add_filter( 'cwv_sanitize_color', 'cwv_sanitize_hex' );
+add_filter( 'cw_sanitize_color', 'cw_sanitize_hex' );
 
 /**
  * Sanitize a color represented in hexidecimal notation.
@@ -272,9 +301,9 @@ add_filter( 'cwv_sanitize_color', 'cwv_sanitize_hex' );
  * @param string $default (default: '')  The value that this function should return if it cannot be recognized as a color.
  * @return string
  */
-function cwv_sanitize_hex( $hex, $default = '' ) {
+function cw_sanitize_hex( $hex, $default = '' ) {
 	
-	if ( cwv_validate_hex( $hex ) ) {
+	if ( cw_validate_hex( $hex ) ) {
 	
 		return $hex;
 	
@@ -283,7 +312,9 @@ function cwv_sanitize_hex( $hex, $default = '' ) {
 	return $default;
 
 }
- 
+ }//End function_exists
+if ( ! function_exists('cw_validate_hex')) {
+
 /**
  * Is a given string a color formatted in hexidecimal notation?
  * 
@@ -292,7 +323,7 @@ function cwv_sanitize_hex( $hex, $default = '' ) {
  * @param mixed $hex
  * @return bool
  */
-function cwv_validate_hex( $hex ) {
+function cw_validate_hex( $hex ) {
 	
 	$hex = trim( $hex );
 	
@@ -320,5 +351,6 @@ function cwv_validate_hex( $hex ) {
 	
 	}
 }
+ }//End function_exists
 
 ?>

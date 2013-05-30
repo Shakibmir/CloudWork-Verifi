@@ -3,7 +3,7 @@
 Plugin Name: CloudWork Verifi
 Plugin URI: http://cloudworkthemes.com
 Description: Uses Envato API to verify purchase at registration, prevents duplicate purchase codes
-Version: 0.4.3
+Version: 0.4.4
 Author: Chris Kelley <chris@organicbeemedia.com>
 Author URI: http://cloudworkthemes.com
 License: GPLv2
@@ -51,6 +51,10 @@ final class cw_Verifi{
 	 */
 	private function __construct(){
 
+		register_activation_hook( __FILE__, array( &$this, 'install') );
+
+		register_deactivation_hook(__FILE__, array( &$this, 'deactivate') );
+		
 		add_action('init', array( &$this , 'register_scripts' ));
 	}
 	
@@ -230,7 +234,8 @@ final class cw_Verifi{
 	 * @return void
 	 */
 	function install(){
-
+	
+		do_action('cwv_install');
 		
 	}
 	
@@ -243,16 +248,13 @@ final class cw_Verifi{
 	 */
 	function deactivate(){
 	
+		do_action('cwv_deactivate');
 		
 	}
 
 	
 
 }//Ends Class
-
-//register_activation_hook( __FILE__, array('cw_Verifi', 'install') );
-
-//register_deactivation_hook(__FILE__, array('cw_Verifi', 'deactivate') );
 
 //Jedi Mind Tricks
 $verifi = cw_Verifi::instance();

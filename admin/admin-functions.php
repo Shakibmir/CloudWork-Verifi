@@ -1,14 +1,14 @@
 <?php
-
+if ( ! function_exists( 'cw_setdefaults' ) ){
 /**
- * cwv_setdefaults function.
+ * cw_setdefaults function.
  * 
  * @access public
  * @param mixed $options
  * @param mixed $section
  * @return void
  */
-function cwv_setdefaults($options, $section) {
+function cw_setdefaults( $options, $section ) {
 	
 	// Gets the unique option id
 	$option_name = $section;
@@ -17,7 +17,7 @@ function cwv_setdefaults($options, $section) {
 	$options = $options;
 	
 	// If the options haven't been added to the database yet, they are added now
-	$values = cwv_get_default_values($options);
+	$values = cw_get_default_values($options);
 	
 	if ( isset($values) ) {
 		
@@ -27,14 +27,18 @@ function cwv_setdefaults($options, $section) {
 
 }
 
+}//End function_exists
+
+if ( ! function_exists( 'cw_get_default_values' ) ){
+
 /**
- * cwv_get_default_values function.
+ * cw_get_default_values function.
  * 
  * @access public
  * @param mixed $options
  * @return void
  */
-function cwv_get_default_values($options) {
+function cw_get_default_values($options) {
 	
 	$output = array();
 	
@@ -60,9 +64,9 @@ function cwv_get_default_values($options) {
 		
 		}
 		
-		if ( has_filter( 'cwv_sanitize_' . $option['type'] ) ) {
+		if ( has_filter( 'cw_sanitize_' . $option['type'] ) ) {
 		
-			$output[$option['id']] = apply_filters( 'cwv_sanitize_' . $option['type'], $option['std'], $option );
+			$output[$option['id']] = apply_filters( 'cw_sanitize_' . $option['type'], $option['std'], $option );
 		
 		}
 	
@@ -71,17 +75,21 @@ function cwv_get_default_values($options) {
 	return $output;
 }
 
+}//End function_exists
+
+if ( ! function_exists( 'cw_tabs' ) ){
+
 /**
  * Generates the tabs that are used in the options menu
  *
- * cwv_tabs function.
+ * cw_tabs function.
  * 
  * @since 0.1
  * @access public
  * @return string
  */
 
-function cwv_tabs($options) {
+function cw_tabs( $options ) {
 
 	$counter = 0;
 	
@@ -109,6 +117,11 @@ function cwv_tabs($options) {
 
 
 }
+
+}//End function_exists
+
+if ( ! function_exists( 'cw_fields' ) ){
+
 /**
  * Generates the options fields that are used in the form.
  *
@@ -116,7 +129,7 @@ function cwv_tabs($options) {
  * @access public
  * @return string
  */
-function cwv_fields($options, $settings) {
+function cw_fields($options, $settings) {
 
 	global $allowedtags;
 	
@@ -382,7 +395,7 @@ function cwv_fields($options, $settings) {
 		// Uploader
 		case "upload":
 			
-			$output .= cwv_medialibrary_uploader( $value['id'], $val, null, null, $option_name );
+			$output .= cw_medialibrary_uploader( $value['id'], $val, null, null, $option_name );
 			
 			break;	
 			
@@ -465,7 +478,7 @@ function cwv_fields($options, $settings) {
 			
 			if ( $value['desc'] ) {
 			
-				$output .= apply_filters('cwv_sanitize_info', $value['desc'] ) . "\n";
+				$output .= apply_filters('cw_sanitize_info', $value['desc'] ) . "\n";
 			
 			}
 			
@@ -489,9 +502,7 @@ function cwv_fields($options, $settings) {
 			$menu .= '<a id="'.  esc_attr( $jquery_click_hook ) . '-tab" class="nav-tab" title="' . esc_attr( $value['name'] ) . '" href="' . esc_attr( '#'.  $jquery_click_hook ) . '">' . esc_html( $value['name'] ) . '</a>';
 			
 			$output .= '<div class="group" id="' . esc_attr( $jquery_click_hook ) . '">';
-			
-			$output .= '<h3>' . esc_html( $value['name'] ) . '</h3>' . "\n";
-			
+						
 			break;
 
 		}
@@ -517,6 +528,10 @@ function cwv_fields($options, $settings) {
 
 }
 
+}//End function_exists
+
+if ( ! function_exists( 'cw_medialibrary_uploader' ) ){
+
 /**
  * Media Uploader Using the WordPress Media Library.
  * 
@@ -530,7 +545,7 @@ function cwv_fields($options, $settings) {
  * @return string
  *
  */
-function cwv_medialibrary_uploader( $_id, $_value, $_desc = '', $_name = '', $section) {
+function cw_medialibrary_uploader( $_id, $_value, $_desc = '', $_name = '', $section) {
 	
 	// Gets the unique option id
 	$option_name = $section;
@@ -566,11 +581,11 @@ function cwv_medialibrary_uploader( $_id, $_value, $_desc = '', $_name = '', $se
 	
 	$output .= '<div class="uploader"><input id="' . $id . '" class="custom_media_url' . $class . '" type="text" name="'.$name.'" value="' . $value . '" />' . "\n";
 	
-	$output .= '<input id="' . $id . '_button" class="button" type="button" value="' . __( 'Upload', 'cwv_theme' ) . '" rel="' . $int . '" /></div>' . "\n";
+	$output .= '<input id="' . $id . '_button" class="button" type="button" value="' . __( 'Upload', 'cloudwork' ) . '" rel="' . $int . '" /></div>' . "\n";
 	
 	if ( $_desc != '' ) {
 	
-		$output .= '<span class="cwv_metabox_desc">' . $_desc . '</span>' . "\n";
+		$output .= '<span class="cw_metabox_desc">' . $_desc . '</span>' . "\n";
 	
 	}
 	
@@ -600,7 +615,7 @@ function cwv_medialibrary_uploader( $_id, $_value, $_desc = '', $_name = '', $se
 			$output .= '';
 		
 			// Standard generic output if it's not an image.	
-			$title = __( 'View File', 'cwv_theme' );
+			$title = __( 'View File', 'cloudwork' );
 	
 			$output .= '<div class="no_image"><span class="file_link"><a href="' . $value . '" target="_blank" rel="external">'.$title.'</a></span>' . $remove . '</div>';
 	
@@ -613,4 +628,17 @@ function cwv_medialibrary_uploader( $_id, $_value, $_desc = '', $_name = '', $se
 	return $output;
 
 }
+
+}//End function_exists
+
+
+if ( ! function_exists( 'cw_get_option' ) ){
+
+function cw_get_option( $option, $set ){
+	
+	
+}
+
+}//End function_exists
+
 ?>

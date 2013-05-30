@@ -87,7 +87,7 @@ final class cwv_GeneralSettings{
 		// If the option has no saved data, load the defaults
 		if ( ! get_option($option_name) ) {
 	
-			cwv_setdefaults($this->options, $option_name);
+			cw_setdefaults($this->options, $option_name);
 			
 		}
 
@@ -125,11 +125,11 @@ final class cwv_GeneralSettings{
 			
 			wp_enqueue_style( 'wp-color-picker' );
 
-			wp_enqueue_script( 'cwtu-options' );	
+			wp_enqueue_script( 'cwv-options' );	
 					 
-			wp_enqueue_script( 'cwtu-uploader' );
+			wp_enqueue_script( 'cw-uploader' );
 			
-			wp_enqueue_style('cwtu-admin');
+			wp_enqueue_style('cw-admin');
 		
 	}
 	
@@ -137,13 +137,13 @@ final class cwv_GeneralSettings{
 
 			<div id="cwv_options-wrap" class="wrap">
         
-				<h2 class="nav-tab-wrapper"><?php echo cwv_tabs($this->options); ?></h2>
+				<h2 class="nav-tab-wrapper"><?php echo cw_tabs($this->options); ?></h2>
 	
 				<form action="options.php" method="post">
 	
 					<?php settings_fields('cw_verifi_options'); ?>
 	
-					<?php cwv_fields($this->options, 'cw_verifi_options');/* Settings */ ?>
+					<?php cw_fields($this->options, 'cw_verifi_options');/* Settings */ ?>
 	
 					<div id="cwv_options-submit">
 	
@@ -207,16 +207,16 @@ final class cwv_GeneralSettings{
 			}
 
 			// For a value to be submitted to database it must pass through a sanitization filter
-			if ( has_filter( 'cwv_sanitize_' . $option['type'] ) ) {
+			if ( has_filter( 'cw_sanitize_' . $option['type'] ) ) {
 		
-				$clean[$id] = apply_filters( 'cwv_sanitize_' . $option['type'], $input[$id], $option );
+				$clean[$id] = apply_filters( 'cw_sanitize_' . $option['type'], $input[$id], $option );
 				
 			}
 	
 		}
 	
 		// Hook to run after validation
-		do_action( 'cwv_after_validate', $clean );
+		do_action( 'cw_after_validate', $clean );
 	
 		return $clean;
 	
@@ -224,9 +224,9 @@ final class cwv_GeneralSettings{
 	
 }
 
-endif; //end if class exists
-
 //High Five
 $cwv_generalsettings = new cwv_GeneralSettings;
 //Low Five
+
+endif; //end if class exists
 ?>

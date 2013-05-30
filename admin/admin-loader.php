@@ -16,9 +16,9 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'cw_VerifiAdmin_loader' ) ) :
+if ( !class_exists( 'cwv_AdminLoader' ) ) :
 
-final class cw_VerifiAdmin_loader{
+final class cwv_AdminLoader{
 	
 	/**
 	 * Just doing our thang!
@@ -77,9 +77,9 @@ final class cw_VerifiAdmin_loader{
 		
 		}
 		
-		wp_register_script( 'cwtu-options', trailingslashit( CWV_JS ) .'cw.custom.options.js', array( 'jquery', 'wp-color-picker', 'iris' ) );
+		wp_register_script( 'cwv-options', trailingslashit( CWV_JS ) .'cw.custom.options.js', array( 'jquery', 'wp-color-picker', 'iris' ) );
 						
-		wp_register_script( 'cwtu-uploader', trailingslashit( CWV_JS ) .'cw.uploader.js', array( 'jquery', 'thickbox' ) );
+		wp_register_script( 'cw-uploader', trailingslashit( CWV_JS ) .'cw-uploader.js', array( 'jquery', 'thickbox' ) );
 			
 		if ( !wp_script_is( 'wp-color-picker', 'registered' ) ) {
 			
@@ -98,7 +98,7 @@ final class cw_VerifiAdmin_loader{
 		}
 		
 		//Register Styles
-		wp_register_style('cwtu-admin', trailingslashit( CWV_CSS ) . 'cwtu-admin.css', array(), 1.0 , false );
+		wp_register_style('cw-admin', trailingslashit( CWV_CSS ) . 'admin.css', array(), 1.0 , false );
 		
 	
 	}
@@ -158,9 +158,10 @@ final class cw_VerifiAdmin_loader{
 	
 }
 
+//High Five
+$cwv_admin_loader = new cwv_AdminLoader();
+//Low Five
+
 endif; //end if class exists
 
-//High Five
-$cwtu_admin_loader = new cw_VerifiAdmin_loader();
-//Low Five
 ?>

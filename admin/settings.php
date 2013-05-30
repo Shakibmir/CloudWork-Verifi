@@ -34,7 +34,7 @@ function cwv_general_options() {
 				
 	$options[] = array(
 		'name' => __('Redirect URL', 'cwtu'),
-		'desc' => __('This controls the excerpt "read more" text. Leave blank and it will not display any text', 'cwtu'),
+		'desc' => __('This controls the redirect after signup', 'cwtu'),
 		'id' => 'cw_redirect_url',
 		'std' => get_home_url() ,
 		'type' => 'text');	
